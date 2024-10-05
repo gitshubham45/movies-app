@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "CommonJS",
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "./dist", // Output directory for compiled JavaScript
+    "rootDir": "./src", // Source directory containing TypeScript files
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
