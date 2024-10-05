@@ -13,6 +13,22 @@
   }
 }
 
+
+.hide-scrollbar {
+  overflow-y: auto; 
+  max-height: calc(100vh - 180px); 
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; 
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
