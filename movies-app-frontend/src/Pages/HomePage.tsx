@@ -5,17 +5,21 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
 
-  const navigate = useNavigate(); // Updated to useNavigate
+  const navigate = useNavigate(); 
 
   const handleMovieClick = () => {
-    navigate('/movie-review'); // Use navigate to go to the MovieReviewPage
+    navigate('/movie-review'); 
   };
 
   const [searchQuery, setSearchQuery] = useState('');
   const movies = [
     { title: 'Star Wars: A New Hope', releaseDate: '1st August, 2022', rating: 8.33 },
     { title: 'Top GUn', releaseDate: '1st August, 2022', rating: 9 },
-    // Add more movies here
+    { title: 'Top GUn', releaseDate: '1st August, 2022', rating: 9 },
+    { title: 'Top GUn', releaseDate: '1st August, 2022', rating: 9 },
+    { title: 'Star Wars: A New Hope', releaseDate: '1st August, 2022', rating: 8.33 },
+    
+
   ];
 
   const filteredMovies = movies.filter((movie) =>
@@ -24,13 +28,10 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      {/* Header */}
       <h1 className="text-3xl font-bold text-gray-800">The best movie reviews site!</h1>
 
-      {/* Search Bar */}
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      {/* Movie Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredMovies.map((movie, index) => (
           <MovieCard

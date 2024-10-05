@@ -8,7 +8,6 @@ const Navbar: React.FC = () => {
   const [showMovieForm, setShowMovieForm] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  // Open modals
   const handleAddMovieClick = () => {
     setShowMovieForm(true);
   };
@@ -17,7 +16,6 @@ const Navbar: React.FC = () => {
     setShowReviewForm(true);
   };
 
-  // Close modals
   const closeMovieModal = () => {
     setShowMovieForm(false);
   };
@@ -30,12 +28,10 @@ const Navbar: React.FC = () => {
     <>
       <nav className="bg-gray-200 p-4">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
-          {/* Logo wrapped in Link for navigation */}
           <Link to="/" className="text-gray-700 text-2xl font-bold">
             MyLogo
           </Link>
 
-          {/* Buttons */}
           <div className="space-x-4 mt-4 sm:mt-0">
             <button 
               className="text-purple-600 border border-purple-600 px-4 py-2 rounded hover:bg-purple-50 transition" 
@@ -53,12 +49,10 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
-      {/* Modal for Add Movie */}
       <Modal isOpen={showMovieForm} onClose={closeMovieModal}>
         <AddMovieForm />
       </Modal>
 
-      {/* Modal for Add Review */}
       <Modal isOpen={showReviewForm} onClose={closeReviewModal}>
         <AddReviewForm />
       </Modal>

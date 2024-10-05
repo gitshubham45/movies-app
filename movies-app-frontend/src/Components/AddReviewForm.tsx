@@ -8,16 +8,13 @@ const AddReviewForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle the form submission logic here
     console.log({ movie, reviewerName, rating, comments });
   };
 
   return (
     <div className="w-full max-w-lg">
-      {/* Header on the left */}
       <h2 className="text-left text-xl font-semibold mb-6">Add New Review</h2>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <select
@@ -38,7 +35,7 @@ const AddReviewForm: React.FC = () => {
             name="reviewerName"
             value={reviewerName}
             onChange={(e) => setReviewerName(e.target.value)}
-            placeholder="Your Name" // Placeholder instead of naming
+            placeholder="Your Name" 
             className="w-full p-3 border border-gray-300 rounded"
             required
           />
@@ -52,14 +49,13 @@ const AddReviewForm: React.FC = () => {
             value={rating}
             onChange={(e) => {
               const value = Number(e.target.value);
-              // Allow only numbers between 1 and 10
               if (value >= 1 && value <= 10) {
                 setRating(value);
               } else if (e.target.value === '') {
-                setRating(''); // Allow clearing the input
+                setRating(''); 
               }
             }}
-            placeholder="Rating out of 10" // Placeholder for the rating field
+            placeholder="Rating out of 10" 
             className="w-full p-3 border border-gray-300 rounded"
             required
           />
@@ -69,8 +65,8 @@ const AddReviewForm: React.FC = () => {
             name="comments"
             value={comments}
             onChange={(e) => setComments(e.target.value)}
-            placeholder="Review Comments" // Placeholder instead of naming
-            className="w-full p-3 border border-gray-300 rounded h-32 resize-none" // Increased height for textarea
+            placeholder="Review Comments" 
+            className="w-full p-3 border border-gray-300 rounded h-32 resize-none" 
             required
           ></textarea>
         </div>

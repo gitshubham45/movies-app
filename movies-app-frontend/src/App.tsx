@@ -56,13 +56,13 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar /> {/* Navbar outside of Routes to show on all pages */}
+        <Navbar /> 
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path="/movie-review" element={
             <MovieReviewPage
               title="Star Wars: A New Hope"
-              averageRating={averageRating} // Pass the average rating to the MovieReviewPage
+              averageRating={averageRating} 
               reviews={reviews}
               onEditReview={handleEditReview}
               onDeleteReview={handleDeleteReview}

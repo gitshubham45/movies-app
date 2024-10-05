@@ -22,7 +22,6 @@ const MovieReviewPage: React.FC<MovieReviewPageProps> = ({
 }) => {
   return (
     <div className="container mx-auto p-4" style={{ maxHeight: 'calc(100vh - 100px)' }}>
-      {/* Movie Title and Average Rating - Fixed Header */}
       <div className="flex justify-between items-center mb-4 sticky top-0 bg-white z-10 shadow">
         <h1 className="text-3xl font-light text-gray-800">
           {title}
@@ -32,7 +31,6 @@ const MovieReviewPage: React.FC<MovieReviewPageProps> = ({
         </p>
       </div>
 
-      {/* List of Reviews - Scrollable Section */}
       <div className="mt-6 space-y-4 hide-scrollbar">
         {reviews.map((review, index) => (
           <ReviewCard
