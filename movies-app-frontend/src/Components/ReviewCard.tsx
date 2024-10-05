@@ -5,12 +5,10 @@ import { AiFillDelete } from "react-icons/ai";
 interface ReviewCardProps {
   reviewText: string;
   reviewerName?: string;
-  rating: number;
-  onEdit: () => void;
-  onDelete: () => void;
+  rating: string;
 }
 
-const ReviewCard: React.FC<ReviewCardProps> = ({ reviewText, reviewerName, rating, onEdit, onDelete }) => {
+const ReviewCard: React.FC<ReviewCardProps> = ({ reviewText, reviewerName, rating }) => {
   return (
     <div className="border-2 border-gray-300 p-4 mb-4 relative flex flex-col h-full justify-between transition-all duration-200 ease-in-out hover:shadow-lg ">
       <span className="absolute top-2 right-2 font-semibold text-purple-600">
@@ -28,10 +26,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ reviewText, reviewerName, ratin
       </div>
 
       <div className="mt-4 flex justify-end space-x-2">
-        <button onClick={onEdit} className="text-gray-600 hover:text-gray-800">
+        <button  className="text-gray-600 hover:text-gray-800">
           <FiEdit />
         </button>
-        <button onClick={onDelete} className="text-gray-600 hover:text-gray-800">
+        <button  className="text-gray-600 hover:text-gray-800">
           <AiFillDelete />
         </button>
       </div>

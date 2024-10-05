@@ -6,67 +6,15 @@ import HomePage from './Pages/HomePage';
 import MovieReviewPage from './Pages/MovieReviewPage';
 
 function App() {
-  const [reviews, setReviews] = useState([
-    {
-      text: 'This is the best movie ever! I really enjoyed it.',
-      reviewer: 'Amitav Khandelwal',
-      rating: 9,
-    },
-    {
-      text: 'This is the best movie ever! I really enjoyed it.',
-      reviewer: 'Amitav Khandelwal',
-      rating: 8,
-    },
-    {
-      text: 'This is the best movie ever! I really enjoyed it.',
-      reviewer: 'Amitav Khandelwal',
-      rating: 8,
-    },
-    {
-      text: 'This is the best movie ever! I really enjoyed it.',
-      reviewer: 'Amitav Khandelwal',
-      rating: 8,
-    },
-    {
-      text: 'This is the best movie ever! I really enjoyed it.',
-      reviewer: 'Amitav Khandelwal',
-      rating: 8,
-    },
-    {
-      text: 'This is the best movie ever! I really enjoyed it.',
-      reviewer: 'Amitav Khandelwal',
-      rating: 8,
-    },
-  ]);
-
-    const averageRating =
-    reviews.length > 0
-      ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
-      : 0; 
   
-
-  const handleEditReview = (index: number) => {
-    console.log(`Edit review at index: ${index}`);
-  };
-
-  const handleDeleteReview = (index: number) => {
-    setReviews((prevReviews) => prevReviews.filter((_, i) => i !== index));
-  };
-
   return (
     <Router>
       <div className="App">
         <Navbar /> 
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path="/movie-review" element={
-            <MovieReviewPage
-              title="Star Wars: A New Hope"
-              averageRating={averageRating} 
-              reviews={reviews}
-              onEditReview={handleEditReview}
-              onDeleteReview={handleDeleteReview}
-            />
+          <Route path="/movie-review/" element={
+            <MovieReviewPage />
           } />
         </Routes>
       </div>

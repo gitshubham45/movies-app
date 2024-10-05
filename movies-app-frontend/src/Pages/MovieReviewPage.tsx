@@ -1,48 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReviewCard from '../Components/ReviewCard';
+import { MovieContext } from '../Context/MovieContext';
+import ReviewPageShimmer from '../Components/Shimmer/ReviewPageShimmer'; // Import your shimmer component
 
-interface MovieReviewPageProps {
-  title: string;
-  averageRating: number;
-  reviews: Array<{
-    text: string;
-    reviewer: string;
-    rating: number;
-  }>;
-  onEditReview: (index: number) => void;
-  onDeleteReview: (index: number) => void;
-}
 
-const MovieReviewPage: React.FC<MovieReviewPageProps> = ({
-  title,
-  averageRating,
-  reviews,
-  onEditReview,
-  onDeleteReview,
-}) => {
+
+const MovieReviewPage = () => {
+  const { selectedMovie, reviews, reviewPageLoading } = useContext(MovieContext);
+
+  console.log(reviews)
+
   return (
     <div className="container mx-auto p-4" style={{ maxHeight: 'calc(100vh - 100px)' }}>
       <div className="flex justify-between items-center mb-4 sticky top-0 bg-white z-10 shadow">
         <h1 className="text-3xl font-light text-gray-800">
-          {title}
+          {selectedMovie?.name}
         </h1>
-        <p className="text-xl text-purple-600 font-semibold">
-          {averageRating.toFixed(1)}/10
-        </p>
+        {selectedMovie?.averageRating && (
+          <p className="text-xl text-purple-600 font-semibold">
+            {selectedMovie?.averageRating}/10
+          </p>
+        )}
       </div>
 
-      <div className="mt-6 space-y-4 hide-scrollbar">
-        {reviews.map((review, index) => (
-          <ReviewCard
-            key={index}
-            reviewText={review.text}
-            reviewerName={review.reviewer}
-            rating={review.rating}
-            onEdit={() => onEditReview(index)}
-            onDelete={() => onDeleteReview(index)}
-          />
-        ))}
-      </div>
+      {/* Render shimmer if loading */}
+      {reviewPageLoading ? (
+        <ReviewPageShimmer />
+      ) : (
+        <div className="mt-6 space-y-4 hide-scrollbar">
+          {
+            reviews.map((review, index) => (
+              <ReviewCard
+                key={index}
+                reviewText={review?.reviewComments}
+                reviewerName={review?.reviewerName}
+                rating={review?.rating?.toString()}
+              />
+            ))}
+         
+        </div>
+      )}
     </div>
   );
 };

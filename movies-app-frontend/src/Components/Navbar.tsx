@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import Modal from './Modal';
 import AddMovieForm from './AddMovieForm';
 import AddReviewForm from './AddReviewForm';

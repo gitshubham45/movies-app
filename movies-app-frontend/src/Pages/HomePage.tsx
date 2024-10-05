@@ -1,29 +1,27 @@
-import React, { useState } from 'react';
+// src/pages/HomePage.tsx
+import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from '../Components/SearchBar';
 import MovieCard from '../Components/MovieCard';
+import Shimmer from '../Components/Shimmer/Shimmer';
+import { MovieContext } from '../Context/MovieContext';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
+  const { movies, getMovies , loading, handleMovieClick } = useContext(MovieContext); 
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const navigate = useNavigate(); 
-
-  const handleMovieClick = () => {
-    navigate('/movie-review'); 
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const movies = [
-    { title: 'Star Wars: A New Hope', releaseDate: '1st August, 2022', rating: 8.33 },
-    { title: 'Top GUn', releaseDate: '1st August, 2022', rating: 9 },
-    { title: 'Top GUn', releaseDate: '1st August, 2022', rating: 9 },
-    { title: 'Top GUn', releaseDate: '1st August, 2022', rating: 9 },
-    { title: 'Star Wars: A New Hope', releaseDate: '1st August, 2022', rating: 8.33 },
-    
-
-  ];
+  useEffect(() => {
+    getMovies();
+  }, []); 
 
   const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+    movie?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
 
   return (
@@ -33,17 +31,28 @@ const HomePage: React.FC = () => {
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredMovies.map((movie, index) => (
-          <MovieCard
-            key={index}
-            title={movie.title}
-            releaseDate={movie.releaseDate}
-            rating={movie.rating}
-            onEdit={() => console.log(`Edit movie: ${movie.title}`)}
-            onDelete={() => console.log(`Delete movie: ${movie.title}`)}
-            handleMovieClick={handleMovieClick}
-          />
-        ))}
+        {loading ? (
+          Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="bg-purple-100 p-4 rounded-lg shadow-md">
+              <Shimmer />
+            </div>
+          ))
+        ) : (
+          filteredMovies.map((movie) => (
+            <MovieCard
+              key={movie._id}
+              title={movie.name}
+              movieId = {movie._id}
+              releaseDate={formatDate(movie.releaseDate)}
+              rating={movie?.averageRating?.toString()}
+              handleMovieClick={() => {
+                navigate(`/movie-review`);
+                 handleMovieClick(movie)
+                }
+              }
+            />
+          ))
+        )}
       </div>
     </div>
   );

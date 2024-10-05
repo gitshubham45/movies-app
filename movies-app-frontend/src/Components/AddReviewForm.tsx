@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { MovieContext } from '../Context/MovieContext';
 
 const AddReviewForm: React.FC = () => {
-  const [movie, setMovie] = useState('');
+  const { movies, addReview } = useContext(MovieContext); 
+  const [movieId, setMovieId] = useState('');
   const [reviewerName, setReviewerName] = useState('');
-  const [rating, setRating] = useState<number | ''>(1);
-  const [comments, setComments] = useState('');
+  const [rating, setRating] = useState<string | ''>("");
+  const [reviewComments, setReviewComments] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ movie, reviewerName, rating, comments });
+    addReview({ movieId, reviewerName, rating, reviewComments }); 
+
+    console.log(movieId);
+
+    setMovieId('');
+    setReviewerName('');
+    setRating("");
+    setReviewComments('');
   };
 
   return (
@@ -19,14 +28,15 @@ const AddReviewForm: React.FC = () => {
         <div>
           <select
             name="movie"
-            value={movie}
-            onChange={(e) => setMovie(e.target.value)}
+            value={movieId}
+            onChange={(e) => setMovieId(e.target.value)} 
             className="w-full p-3 border border-gray-300 rounded"
             required
           >
             <option value="" disabled>Select a movie</option>
-            <option value="star-wars">Star Wars</option>
-            <option value="top-gun">Top Gun</option>
+            {movies.map((movie) => (
+              <option key={movie._id} value={movie._id}>{movie.name}</option> 
+            ))}
           </select>
         </div>
         <div>
@@ -35,7 +45,7 @@ const AddReviewForm: React.FC = () => {
             name="reviewerName"
             value={reviewerName}
             onChange={(e) => setReviewerName(e.target.value)}
-            placeholder="Your Name" 
+            placeholder="Your Name"
             className="w-full p-3 border border-gray-300 rounded"
             required
           />
@@ -50,12 +60,12 @@ const AddReviewForm: React.FC = () => {
             onChange={(e) => {
               const value = Number(e.target.value);
               if (value >= 1 && value <= 10) {
-                setRating(value);
+                setRating(value.toString());
               } else if (e.target.value === '') {
-                setRating(''); 
+                setRating(""); 
               }
             }}
-            placeholder="Rating out of 10" 
+            placeholder="Rating out of 10"
             className="w-full p-3 border border-gray-300 rounded"
             required
           />
@@ -63,10 +73,10 @@ const AddReviewForm: React.FC = () => {
         <div>
           <textarea
             name="comments"
-            value={comments}
-            onChange={(e) => setComments(e.target.value)}
-            placeholder="Review Comments" 
-            className="w-full p-3 border border-gray-300 rounded h-32 resize-none" 
+            value={reviewComments}
+            onChange={(e) => setReviewComments(e.target.value)}
+            placeholder="Review Comments"
+            className="w-full p-3 border border-gray-300 rounded h-32 resize-none"
             required
           ></textarea>
         </div>
