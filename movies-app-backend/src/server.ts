@@ -21,6 +21,10 @@ mongoose.connect(`${mongoUri}`)
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/',(req,res)=>{
+    res.json("hello world!");
+})
+
 app.use('/api/movies', moviesRouter);
 app.use('/api/reviews', reviewsRouter);
 
