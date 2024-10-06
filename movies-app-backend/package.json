@@ -2,7 +2,7 @@
   "name": "movies-app-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "api/index.ts",
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
