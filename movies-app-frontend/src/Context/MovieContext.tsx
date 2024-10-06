@@ -66,11 +66,10 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
     const apiUrl = process.env.REACT_APP_API_URL;
-    const apiPort = process.env.REACT_APP_API_PORT;
 
     // Fetch all movies from API
     const getMovies = async () => {
-        const endpoint = `${apiUrl}:${apiPort}/api/movies`;
+        const endpoint = `${apiUrl}/api/movies`;
 
         try {
             const response = await axios.get(endpoint);
@@ -86,7 +85,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     // Function to add a new movie
     const addMovie = async (newMovie: Omit<Movie, '_id' | 'averageRating'>) => {
         try {
-            const response = await axios.post(`${apiUrl}:${apiPort}/api/movies`, newMovie);
+            const response = await axios.post(`${apiUrl}/api/movies`, newMovie);
             setMovies((prevMovies) => [...prevMovies, response.data]);
         } catch (error) {
             console.error('Error adding movie:', error);
@@ -96,7 +95,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     // Function to fetch a single movie by ID
     const getMovie = async (movieId: string) => {
         try {
-            const response = await axios.get(`${apiUrl}:${apiPort}/api/movies/${movieId}`);
+            const response = await axios.get(`${apiUrl}/api/movies/${movieId}`);
             await setMovie(response.data); // Set the fetched movie in the state
         } catch (error) {
             console.error('Error fetching movie:', error);
@@ -106,7 +105,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     // Delete movie 
     const deleteMovie = async (movieId: string) => {
         try {
-            const response = await axios.delete(`${apiUrl}:${apiPort}/api/movies/${movieId}`);
+            const response = await axios.delete(`${apiUrl}/api/movies/${movieId}`);
             getMovies();
             await setMovie(response.data); // Set the fetched movie in the state
         } catch (error) {
@@ -117,7 +116,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
      // edit movie 
      const editMovie = async (movieId: string) => {
         try {
-            const response = await axios.put(`${apiUrl}:${apiPort}/api/movies/${movieId}`);
+            const response = await axios.put(`${apiUrl}/api/movies/${movieId}`);
             getMovies();
             await setMovie(response.data); // Set the fetched movie in the state
         } catch (error) {
@@ -130,7 +129,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     const getReviews = async () => {
         if (selectedMovie) {
             try {
-                const response = await axios.get(`${apiUrl}:${apiPort}/api/reviews/${selectedMovie._id}`);
+                const response = await axios.get(`${apiUrl}/api/reviews/${selectedMovie._id}`);
                 setReviews(response.data);
                 console.log(response.data);
             } catch (error) {
@@ -144,7 +143,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     // Function to add a new review
     const addReview = async (newReview: Review) => {
         try {
-            const response = await axios.post(`${apiUrl}:${apiPort}/api/reviews`, newReview);
+            const response = await axios.post(`${apiUrl}/api/reviews`, newReview);
             setReviews((prevReviews) => [...prevReviews, response.data]);
         } catch (error) {
             console.error('Error adding review:', error);
@@ -154,7 +153,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     // Function to add a new review
     const deleteReview = async (reviewId: string) => {
         try {
-            const response = await axios.delete(`${apiUrl}:${apiPort}/api/reviews/${reviewId}`);
+            const response = await axios.delete(`${apiUrl}/api/reviews/${reviewId}`);
             getReviews();
         } catch (error) {
             console.error('Error deleting review:', error);
