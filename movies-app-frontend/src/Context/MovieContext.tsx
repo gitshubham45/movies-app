@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 import axios from 'axios';
 
 interface Movie {
@@ -129,8 +129,10 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
     const getReviews = async () => {
         if (selectedMovie) {
             try {
+                setReviewPageLoading(true);
                 const response = await axios.get(`${apiUrl}/api/reviews/${selectedMovie._id}`);
                 setReviews(response.data);
+                setReviewPageLoading(false)
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching reviews:', error);
@@ -164,8 +166,7 @@ export const MovieProvider = ({ children }: { children: ReactNode }) => {
 
     // Handle movie click to set selected movie and fetch reviews
     const handleMovieClick = (movie: Movie) => {
-        setSelectedMovie(movie);
-        getReviews();
+        setReviewPageLoading(true);
         getMovie(movie._id)
     };
 

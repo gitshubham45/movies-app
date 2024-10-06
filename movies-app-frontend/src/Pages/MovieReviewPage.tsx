@@ -1,14 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReviewCard from '../Components/ReviewCard';
 import { MovieContext } from '../Context/MovieContext';
 import ReviewPageShimmer from '../Components/Shimmer/ReviewPageShimmer'; // Import your shimmer component
 
-
-
 const MovieReviewPage = () => {
-  const { selectedMovie, reviews, reviewPageLoading } = useContext(MovieContext);
+  const { selectedMovie, reviews, reviewPageLoading, getReviews } = useContext(MovieContext);
+  const [showShimmer, setShowShimmer] = useState(true); // State to control shimmer visibility
 
-  console.log(reviews)
+  useEffect(() => {
+    if (selectedMovie) {
+      getReviews();
+      setShowShimmer(true);
+
+      const timeoutId = setTimeout(() => {
+        setShowShimmer(false); 
+      }, 2000);
+
+      return () => clearTimeout(timeoutId); 
+    }
+  }, []);
 
   return (
     <div className="container mx-auto p-4" style={{ maxHeight: 'calc(100vh - 100px)' }}>
@@ -23,21 +33,24 @@ const MovieReviewPage = () => {
         )}
       </div>
 
-      {/* Render shimmer if loading */}
-      {reviewPageLoading ? (
+      {showShimmer || reviewPageLoading ? (
         <ReviewPageShimmer />
       ) : (
         <div className="mt-6 space-y-4 hide-scrollbar">
           {
-            reviews.map((review, index) => (
-              <ReviewCard
-                key={index}
-                reviewText={review?.reviewComments}
-                reviewerName={review?.reviewerName}
-                rating={review?.rating?.toString()}
-              />
-            ))}
-         
+            reviews.length === 0 ? (
+              <p>No reviews available.</p>
+            ) : (
+              reviews.map((review, index) => (
+                <ReviewCard
+                  key={index}
+                  reviewText={review?.reviewComments}
+                  reviewerName={review?.reviewerName}
+                  rating={review?.rating?.toString()}
+                />
+              ))
+            )
+          }
         </div>
       )}
     </div>

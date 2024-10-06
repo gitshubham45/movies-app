@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const { movies, getMovies , loading, handleMovieClick } = useContext(MovieContext); 
+  const { movies, getMovies , loading, setSelectedMovie , setReviews ,handleMovieClick  } = useContext(MovieContext); 
   const [searchQuery, setSearchQuery] = useState('');
 
   const formatDate = (dateString: string) => {
@@ -46,6 +46,8 @@ const HomePage: React.FC = () => {
               releaseDate={formatDate(movie.releaseDate)}
               rating={movie?.averageRating?.toString()}
               handleMovieClick={() => {
+                setSelectedMovie(movie);
+                setReviews([]);
                 navigate(`/movie-review`);
                  handleMovieClick(movie)
                 }
