@@ -27,3 +27,4 @@ app.use('/api/reviews', reviews_1.default);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+exports.default = app;

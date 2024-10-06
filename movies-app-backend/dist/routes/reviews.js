@@ -31,8 +31,8 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             if (numReviews === 0) {
                 newRating = parseInt(rating);
             }
-            else {
-                newRating = ((5 * numReviews) + parseInt(rating)) / (numReviews + 1);
+            else if (movie.averageRating) {
+                newRating = ((movie.averageRating * numReviews) + parseInt(rating)) / (numReviews + 1);
             }
             movie.averageRating = newRating;
             yield movie.save();
